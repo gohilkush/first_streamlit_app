@@ -57,24 +57,23 @@ if streamlit.button('Get Fruit Load List'):
   
 
  try:
-    # Execute SQL query to fetch data
-    my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
-    my_data_rows = my_cur.fetchall()
+  # Execute SQL query to fetch data
+  my_cur.execute("select * from pc_rivery_db.public.fruit_load_list")
+  my_data_rows = my_cur.fetchall()
     
     # Display the data in a Streamlit dataframe
-    st.header("The fruit load contains:")
-    st.dataframe(my_data_rows)
+ st.header("The fruit load contains:")
+ st.dataframe(my_data_rows)
 
     # Get fruit input from user
-    fruit_more_info = st.text_input('What fruit would you like information about?', key='fruit_input')
+ fruit_more_info = st.text_input('What fruit would you like information about?', key='fruit_input')
 
-    if fruit_more_info.strip():  # Check if the input is non-empty
-        # Execute the SQL query with the interpolated variable
-        my_cur.execute(f"insert into PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST values ('{fruit_more_info}')")
-        my_cnx.commit()  # Commit the transaction
+ if fruit_more_info.strip():  # Check if the input is non-empty
+    my_cur.execute(f"insert into PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST values ('{fruit_more_info}')")
+    my_cnx.commit()  # Commit the transaction
         
         # Display a success message
-        st.write('Thanks for adding:', fruit_more_info)
+    st.write('Thanks for adding:', fruit_more_info)
 
 except snowflake.connector.Error as e:
     # Handle Snowflake-specific exceptions
